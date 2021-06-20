@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title> Driving Summary </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <style>
+        #map {
+	   width:100%;
+	   height: 100%;
+	}
+	#video1{
+	      	width:100%;
+	}
+        #video2, #video3 {
+		width:100%;{
+	}
+	button {
+		background:"#EAE8E8";
+	}
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry"> </script>
+    
+    <script src="resources/coords.js"> </script>
+    <script src="resources/places.js"> </script>
+	<style>	
+	
+	#tableLocais tbody {
+	   	height: 280px;
+   	   	overflow-y: scroll;
+   		width: 100%;
+	}
+	
+	#tableLocais thead, #tableLocais tbody{
+   		display: block;
+	}
+
+	</style>
+    </head>
+<body>
+     </br>
+     <div class="container">
+    	
+     <div class="container">
+    	<div class="row">
+			<div class = "col-12">
+				<div class="container">
+		    		<div class="row">
+						<div class="col-8"/>
+							<a href="relatoriosBatimentoCardiaco.html"><button type="button" class="btn btn-info">Freq. Cardiaca</button></a>
+							<a href="relatoriosEstresse.html"> <button type="button" class="btn btn-secondary">Estresse/Ansiedade</button></a>
+						</div>
+						<div class="col-4"/>
+							<a href="indexBatimentoCardiaco.html"><button type="button" class="btn btn-secondary">Vídeos</button></a>
+							<a href="relatoriosBatimentoCardiaco.html"><button type="button" class="btn btn-info">Relatórios</button></a>
+							<a href="sumariosBatimentoCardiaco5.html"><button type="button" class="btn btn-secondary">Sumários</button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</br>
+<div class="container">
+    	<div class="row">
+		
+		<div class="col-2">
+			<b> Legenda:</b> 
+    			<table border="1" cellpadding="0" cellspacing="0" bordercolor="black">
+			<tr>
+				<td bgcolor="#610B0B" width="50px"></td>
+				<td  width="100px"> >132 </td>
+			</tr>
+			<tr bgcolor="#CCCCCC">
+				<td bgcolor="#B40404"></td>
+				<td> 121 a 132 </td>
+			</tr>
+			<tr>
+				<td bgcolor="orange"></td>
+				<td> 109 a 120 </td>
+			</tr>
+			<tr bgcolor="#CCCCCC">
+				<td bgcolor="#FFFF00"></td>
+				<td> 97 a 108</td>
+			</tr>
+			<tr>
+				<td bgcolor="#BFFF00"></td>
+				<td> 85 a 96</td>
+			</tr>
+			<tr bgcolor="#CCCCCC">
+				<td bgcolor="#40FF00"></td>
+				<td> 73 a 84</td>
+			</tr>
+			<tr>
+				<td bgcolor="#04B40"></td>
+				<td> 61 a 72</td>
+			</tr>			
+			<tr bgcolor="#CCCCCC">
+				<td bgcolor="#0B610B"></td>
+				<td> < 61 </td>
+			</tr>
+			</table>
+    		</div>	
+		<div class="col-10"> 
+			<iframe src="grafico/lineFrequenciaCardiaca.html" width="100%" height="260px" frameborder="0"></iframe>
+
+		</div>	
+
+ 	</div>	
+    </div>
+
+    <div class="container">
+    	<div class="row">
+		
+		
+		<div class="col-4">
+			<iframe src="grafico/pieFrequenciaCardiaca.html" width="100%" height="270px" frameborder="0"></iframe>
+
+		</div>	
+		<div class="col-8">
+			<div id="map"></div>
+		</div>	
+       </div>
+    </div>
+    	<script>		
+		//Script da tabela de locais
+		var placeAnterior = places[0].place;
+		vetAux = placeAnterior.split(",");
+		placeAnterior = vetAux[0];
+		var placeAtual = places[0].place;
+		vetAux = placeAtual.split(",");
+		placeAtual = vetAux[0];
+		
+		var min = places[0].heart;
+		var max = places[0].heart;
+		var soma = places[0].heart;
+		var qtd = 1;
+		var media = 0;
+		var cor = "#0B610B";
+		var corLinha = "white";
+		for (i = 1; i < coords.length; i++){
+			placeAtual = places[i].place;
+			vetAux = placeAtual.split(",");
+			placeAtual = vetAux[0];
+			if (placeAnterior.localeCompare(placeAtual)==0){
+				if (min > places[i].heart)
+					min = places[i].heart;
+				if (max < places[i].heart)
+					max = places[i].heart;	
+				soma = soma + places[i].heart;
+				qtd += 1;
+			}
+			else{			
+				media = soma/qtd;
+				if (corLinha.localeCompare('#DCDCDC') == 0){
+					corLinha = "white";
+				} else {
+					corLinha="#DCDCDC";
+				}
+				if (media <= 60){
+					cor = "#0B610B";
+				} else if (media <= 72){
+					cor = "#04B40";	
+				} else if (media <= 84){
+					cor = "#40FF00";	
+				} else if (media <= 96) {
+					cor="#BFFF00";
+				} else if (media <= 108) {
+					cor="#FFFF00";
+				} else if (media <= 120) {
+					cor="orange";
+				} else if (media <= 132) {
+					cor="#B40404";
+				} else {
+					cor="#610B0B";
+				}
+				newRow = $("<tr bgColor="+corLinha+">");
+				cols = '<td>'+ placeAnterior +'</td><td>'+min+'</td><td>'+max+'</td><td bgcolor='+cor+'>'+parseFloat(media).toFixed(1)+'</td>';
+				newRow.append(cols);
+				$("#tableLocais").append(newRow);
+				min = places[i].heart;
+				max = places[i].heart;
+				soma = places[i].heart;
+				qtd = 1;				
+			}
+			 
+			placeAnterior = placeAtual;
+		}
+		media = soma/qtd;
+		if (corLinha.localeCompare('#DCDCDC') == 0){
+			corLinha = "white";
+		} else {
+			corLinha="#DCDCDC";
+		}
+		if (media <= 60){
+			cor = "#0B610B";
+		} else if (media <= 72){
+			cor = "#04B40";
+		} else if (media <= 84){
+			cor = "#40FF00";	
+		} else if (media <= 96) {
+			cor="#BFFF00";
+		} else if (media <= 108) {
+			cor="#FFFF00";
+		} else if (media <= 120) {
+			cor="orange";
+		} else if (media <= 132) {
+			cor="#B40404";
+		} else {
+			cor="#610B0B";
+		}
+		newRow = $("<tr bgColor="+corLinha+">");
+		cols = '<td>'+ placeAnterior +'</td><td>'+min+'</td><td>'+max+'</td><td td bgcolor='+cor+'>'+parseFloat(media).toFixed(1)+'</td>';
+		newRow.append(cols);
+		$("#tableLocais").append(newRow);
+		
+	</script>
+
+	<script>
+
+        var map;
+	var marker;
+
+	var sizeData = 0;
+
+	
+        function initialize() {
+            var markLAT = coords[0].lat;
+            var markLNG = coords[0].lng;
+            map = new google.maps.Map(document.getElementById("map"), {
+              center: new google.maps.LatLng(markLAT, markLNG),
+              zoom: 14,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            designRote();
+        }
+
+        var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/micons/blue.png");
+
+	function designRote() {
+            var i, route;
+	    
+	    routes = [];
+	    cor = coords[0].color;   
+            route = new google.maps.Polyline({
+                path: [],
+                geodesic : true,
+                strokeColor: cor,
+                strokeOpacity: 1.0,
+                strokeWeight: 4,
+                editable: false,
+                map:map
+            });
+	    routes.push(route);
+ 	    latitude = 0;
+            longitude = 0;
+            
+	    marker = new google.maps.Marker({map:map,icon:icon});
+	    
+	    aux = 0;
+            for (i = 0; i < coords.length; i++) {
+		sizeData = sizeData + coords[i].time;
+		setTimeout(function (coords)	
+                {	         
+				if (coords.color != cor){
+				    cor = coords.color;
+				    route = new google.maps.Polyline({
+                			path: [],
+                			geodesic : true,
+                			strokeColor: coords.color,
+                			strokeOpacity: 1.0,
+                			strokeWeight: 4,
+                			editable: false,
+                			map:map
+            			    });
+				    routes.push(route);
+				    aux = aux + 1;
+				    routes[aux].getPath().push(new google.maps.LatLng(latitude, longitude));
+				}
+				latitude = coords.lat;
+			        longitude = coords.lng;
+				routes[aux].getPath().push(new google.maps.LatLng(coords.lat, coords.lng));
+    	           			moveMarker(map, marker, coords.lat, coords.lng);
+               	}, 1,coords[i]);
+            }
+        }
+	
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+	</script>
+	
+</body>
+	
+</html>

@@ -1,0 +1,2373 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title> Driving Summary </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <style>
+       
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
+    <script src="resources/sumar_100.js"> </script>
+    <style>
+	video{
+	      	width:100%;
+	}
+	label{
+		color:white;
+		font-weight: bolder;
+	}
+    </style>
+</head>
+<body>
+     </br>
+    <div class="container">
+	<div class="row">
+		<div class="col-8"/>
+			<a href="sumariosBatimentoCardiaco5.html"><button type="button" class="btn btn-secondary">Freq. Cardiaca</button></a>
+			<a href="sumariosEstresse5.html"> <button type="button" class="btn btn-info">Estresse/Ansiedade</button></a>
+		</div>
+		<div class="col-4"/>
+			<a href="indexEstresse.html"><button type="button" class="btn btn-secondary">Vídeos</button></a>
+			<a href="relatoriosEstresse.html"><button type="button" class="btn btn-secondary">Relatórios</button></a>
+			<a href="sumariosEstresse5.html"><button type="button" class="btn btn-info">Sumários</button></a>
+		</div>
+	</div>
+     </div> 
+     <br>
+     <div class="container">
+ 	    <div class="row">
+		<div class="col-3">
+			<input type="radio" id="option_1" value="opt1" name="selector"  onchange="(function() { 
+										window.location.href = 'sumariosEstresse5.html';
+										})()"> Maiores 5 </br>
+			<input type="radio" id="option_2" name="selector" onchange="(function() { 
+										window.location.href = 'sumariosEstresse10.html';
+										})()"> Maiores 10 </br>
+			<input type="radio" id="option_3" name="selector" checked onchange="(function() { 
+										window.location.href = 'sumariosEstresse100.html';
+										})()">  Valores Maiores que 100 </br>
+			<input type="radio" id="option_4" name="selector" onchange="(function() { 
+										window.location.href = 'sumariosEstresse200.html';
+										})()"> Valores Maiores que 200 </br>
+		</div>
+		<div class="col-3"> </div>
+		<div class="col-6">
+			Legenda:
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="5px"> </td>
+					<td bgcolor="#B40404" width="40px"></td>
+					<td> > 200 </td>
+					<td width="5px"> </td>
+					<td bgcolor="orange" width="40px"></td>
+					<td> 101-200 </td>
+					<td width="5px"> </td>
+					<td bgcolor="#FFFF00" width="40px"></td>
+					<td> 51-100</td>
+					<td width="5px"> </td>
+					<td bgcolor="#BFFF00" width="40px"></td>
+					<td> 1-50 </td>
+					<td width="5px"> </td>
+					<td bgcolor="#0B610B" width="40px"></td>
+					<td> 0 </td>
+					<td width="5px"> </td>
+				</tr>
+				
+			
+				
+			</table>
+		</div>
+	     </div>
+     </div>
+     </br>
+     <div class="container" id="div_bloco_1">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay1" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause1" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop1" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_1_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_1_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_1_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_1_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_1_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_1_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+ 
+     <script>
+	var inicio1 = sumarys[0].start
+	mI1 = parseInt(inicio1/3600)
+	sI1 = parseInt((inicio1/3600 - mI1)*60)
+	inicio1 = inicio1/60
+       	var final1 = sumarys[0].final
+	mF1 = parseInt(final1/3600)
+	sF1 = parseInt((final1/3600 - mF1)*60)
+	if(mI1 < 10)
+		mI1 = '0'+mI1
+	if(sI1 < 10)
+		sI1 = '0'+sI1
+	if(mF1 < 10)
+		mF1 = '0'+mF1
+	if(sF1 < 10)
+		sF1 = '0'+sF1
+	final1 = final1/60
+	var label1 = sumarys[0].label
+	var color1 = sumarys[0].color
+	document.querySelector('#div_bloco_1').style.backgroundColor = color1
+	document.querySelector('#bloco_1_label_valor').innerHTML = 'Valor: '+label1
+	document.querySelector('#bloco_1_label_inicio').innerHTML = 'Inicio: '+ mI1 + ':' + sI1
+	document.querySelector('#bloco_1_label_fim').innerHTML = 'Fim: '+ mF1 + ':' + sF1
+	var midia1_1 = document.getElementById('bloco_1_video_1');
+	var midia1_2 = document.getElementById('bloco_1_video_2');
+	var midia1_3 = document.getElementById('bloco_1_video_3');
+	midia1_2.volume = 0;
+	midia1_3.volume = 0;
+	midia1_1.removeAttribute('controls');
+	midia1_2.removeAttribute('controls');
+	midia1_3.removeAttribute('controls');
+	midia1_1.currentTime = inicio1
+	midia1_2.currentTime = inicio1
+	midia1_3.currentTime = inicio1
+
+	status1 = 'pause1' //play1 ou stop1	
+	function play1 (){
+		status1 = 'play1';
+		midia1_1.play();
+		midia1_2.play();
+		midia1_3.play();
+		$("#btnPlay1").css("background","#17A2B8");
+		$("#btnPause1").css("background","#EAE8E8");
+		$("#btnStop1").css("background","#EAE8E8");
+		$("#btnPlay1").css("color","white");
+		$("#btnPause1").css("color","black");
+		$("#btnStop1").css("color","black");
+		gerenciaVideo1()
+	}
+	document.getElementById('btnPlay1').onclick = play1
+	function pause1 (){
+		status1 = 'pause1';
+		midia1_1.pause();
+		midia1_2.pause();
+		midia1_3.pause();
+		$("#btnPlay1").css("background","#EAE8E8");
+		$("#btnPause1").css("background","#17A2B8");
+		$("#btnStop1").css("background","#EAE8E8");
+		$("#btnPlay1").css("color","black");
+		$("#btnPause1").css("color","white");
+		$("#btnStop1").css("color","black");
+	}
+	function stop1 (){
+		status1 = 'stop1';
+		midia1_1.pause();
+		midia1_2.pause();
+		midia1_3.pause();
+		midia1_1.currentTime = inicio1
+		midia1_2.currentTime = inicio1
+		midia1_3.currentTime = inicio1	
+		$("#btnPlay1").css("background","#EAE8E8");
+		$("#btnPause1").css("background","#EAE8E8");
+		$("#btnStop1").css("background","#17A2B8");
+		$("#btnPlay1").css("color","black");
+		$("#btnPause1").css("color","black");
+		$("#btnStop1").css("color","white");
+	}
+
+	function gerenciaVideo1(){
+		if(midia1_1.currentTime < final1)  {
+			setTimeout(gerenciaVideo1,2000)
+		}
+		else{
+			stop1()
+		}
+	}	
+	document.getElementById('btnPlay1').onclick = play1
+	document.getElementById('btnPause1').onclick = pause1
+	document.getElementById('btnStop1').onclick = stop1
+     </script>
+  
+     <div class="container" id="div_bloco_2">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay2" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause2" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop2" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_2_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_2_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_2_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_2_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_2_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_2_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+ 
+     <script>
+	var inicio2 = sumarys[1].start
+	mI2 = parseInt(inicio2/3600)
+	sI2 = parseInt((inicio2/3600 - mI2)*60)
+	inicio2 = inicio2/60
+       	var final2 = sumarys[1].final
+	mF2 = parseInt(final2/3600)
+	sF2 = parseInt((final2/3600 - mF2)*60)
+	final2 = final2/60
+	if(mI2 < 10)
+		mI2 = '0'+mI2
+	if(sI2 < 10)
+		sI2 = '0'+sI2
+	if(mF2 < 10)
+		mF2 = '0'+mF2
+	if(sF2 < 10)
+		sF2 = '0'+sF2
+	var label2 = sumarys[1].label
+	var color2 = sumarys[1].color
+	document.querySelector('#div_bloco_2').style.backgroundColor = color2
+	document.querySelector('#bloco_2_label_valor').innerHTML = 'Valor: '+label2
+	document.querySelector('#bloco_2_label_inicio').innerHTML = 'Inicio: '+ mI2 + ':' + sI2
+	document.querySelector('#bloco_2_label_fim').innerHTML = 'Fim: '+ mF2 + ':' + sF2
+	var midia2_1 = document.getElementById('bloco_2_video_1');
+	var midia2_2 = document.getElementById('bloco_2_video_2');
+	var midia2_3 = document.getElementById('bloco_2_video_3');
+	midia2_2.volume = 0;
+	midia2_3.volume = 0;
+	midia2_1.removeAttribute('controls');
+	midia2_2.removeAttribute('controls');
+	midia2_3.removeAttribute('controls');
+	midia2_1.currentTime = inicio2
+	midia2_2.currentTime = inicio2
+	midia2_3.currentTime = inicio2
+
+	status2 = 'pause2' //play2 ou stop2	
+	function play2 (){
+		status2 = 'play2';
+		midia2_1.play();
+		midia2_2.play();
+		midia2_3.play();
+		$("#btnPlay2").css("background","#17A2B8");
+		$("#btnPause2").css("background","#EAE8E8");
+		$("#btnStop2").css("background","#EAE8E8");
+		$("#btnPlay2").css("color","white");
+		$("#btnPause2").css("color","black");
+		$("#btnStop2").css("color","black");
+		gerenciaVideo2()
+	}
+	document.getElementById('btnPlay2').onclick = play2
+	function pause2 (){
+		status2 = 'pause2';
+		midia2_1.pause();
+		midia2_2.pause();
+		midia2_3.pause();
+		$("#btnPlay2").css("background","#EAE8E8");
+		$("#btnPause2").css("background","#17A2B8");
+		$("#btnStop2").css("background","#EAE8E8");
+		$("#btnPlay2").css("color","black");
+		$("#btnPause2").css("color","white");
+		$("#btnStop2").css("color","black");
+	}
+	function stop2 (){
+		status2 = 'stop2';
+		midia2_1.pause();
+		midia2_2.pause();
+		midia2_3.pause();
+		midia2_1.currentTime = inicio2
+		midia2_2.currentTime = inicio2
+		midia2_3.currentTime = inicio2	
+		$("#btnPlay2").css("background","#EAE8E8");
+		$("#btnPause2").css("background","#EAE8E8");
+		$("#btnStop2").css("background","#17A2B8");
+		$("#btnPlay2").css("color","black");
+		$("#btnPause2").css("color","black");
+		$("#btnStop2").css("color","white");
+	}
+
+	function gerenciaVideo2(){
+		if(midia2_1.currentTime < final2)  {
+			setTimeout(gerenciaVideo2,2000)
+		}
+		else{
+			stop2()
+		}
+	}	
+	document.getElementById('btnPlay2').onclick = play2
+	document.getElementById('btnPause2').onclick = pause2
+	document.getElementById('btnStop2').onclick = stop2
+     </script>  
+
+    <div class="container" id="div_bloco_3">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay3" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause3" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop3" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_3_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_3_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_3_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_3_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_3_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_3_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+ 
+     <script>
+	var inicio3 = sumarys[2].start
+	mI3 = parseInt(inicio3/3600)
+	sI3 = parseInt((inicio3/3600 - mI3)*60)
+	inicio3 = inicio3/60
+       	var final3 = sumarys[2].final
+	mF3 = parseInt(final3/3600)
+	sF3 = parseInt((final3/3600 - mF3)*60)
+	final3 = final3/60
+	if(mI3 < 10)
+		mI3 = '0'+mI3
+	if(sI3 < 10)
+		sI3 = '0'+sI3
+	if(mF3 < 10)
+		mF3 = '0'+mF3
+	if(sF3 < 10)
+		sF3 = '0'+sF3
+	var label3 = sumarys[2].label
+	var color3 = sumarys[2].color
+	document.querySelector('#div_bloco_3').style.backgroundColor = color3
+	document.querySelector('#bloco_3_label_valor').innerHTML = 'Valor: '+label3
+	document.querySelector('#bloco_3_label_inicio').innerHTML = 'Inicio: '+ mI3 + ':' + sI3
+	document.querySelector('#bloco_3_label_fim').innerHTML = 'Fim: '+ mF3 + ':' + sF3
+	var midia3_1 = document.getElementById('bloco_3_video_1');
+	var midia3_2 = document.getElementById('bloco_3_video_2');
+	var midia3_3 = document.getElementById('bloco_3_video_3');
+	midia3_2.volume = 0;
+	midia3_3.volume = 0;
+	midia3_1.removeAttribute('controls');
+	midia3_2.removeAttribute('controls');
+	midia3_3.removeAttribute('controls');
+	midia3_1.currentTime = inicio3
+	midia3_2.currentTime = inicio3
+	midia3_3.currentTime = inicio3
+
+	status3 = 'pause3' //play2 ou stop2	
+	function play3 (){
+		status3 = 'play3';
+		midia3_1.play();
+		midia3_2.play();
+		midia3_3.play();
+		$("#btnPlay3").css("background","#17A2B8");
+		$("#btnPause3").css("background","#EAE8E8");
+		$("#btnStop3").css("background","#EAE8E8");
+		$("#btnPlay3").css("color","white");
+		$("#btnPause3").css("color","black");
+		$("#btnStop3").css("color","black");
+		gerenciaVideo3()
+	}
+	document.getElementById('btnPlay3').onclick = play2
+	function pause3 (){
+		status3 = 'pause3';
+		midia3_1.pause();
+		midia3_2.pause();
+		midia3_3.pause();
+		$("#btnPlay3").css("background","#EAE8E8");
+		$("#btnPause3").css("background","#17A2B8");
+		$("#btnStop3").css("background","#EAE8E8");
+		$("#btnPlay3").css("color","black");
+		$("#btnPause3").css("color","white");
+		$("#btnStop3").css("color","black");
+	}
+	function stop3 (){
+		status3 = 'stop3';
+		midia3_1.pause();
+		midia3_2.pause();
+		midia3_3.pause();
+		midia3_1.currentTime = inicio3
+		midia3_2.currentTime = inicio3
+		midia3_3.currentTime = inicio3	
+		$("#btnPlay3").css("background","#EAE8E8");
+		$("#btnPause3").css("background","#EAE8E8");
+		$("#btnStop3").css("background","#17A2B8");
+		$("#btnPlay3").css("color","black");
+		$("#btnPause3").css("color","black");
+		$("#btnStop3").css("color","white");
+	}
+
+	function gerenciaVideo3(){
+		if(midia3_1.currentTime < final3)  {
+			setTimeout(gerenciaVideo3,2000)
+		}
+		else{
+			stop3()
+		}
+	}	
+	document.getElementById('btnPlay3').onclick = play3
+	document.getElementById('btnPause3').onclick = pause3
+	document.getElementById('btnStop3').onclick = stop3
+     </script>  
+	
+    <div class="container" id="div_bloco_4">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay4" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause4" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop4" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_4_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_4_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_4_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_4_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_4_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_4_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+ 
+     <script>
+	var inicio4 = sumarys[3].start
+	mI4 = parseInt(inicio4/3600)
+	sI4 = parseInt((inicio4/3600 - mI4)*60)
+	inicio4 = inicio4/60
+       	var final4 = sumarys[3].final
+	mF4 = parseInt(final4/3600)
+	sF4 = parseInt((final4/3600 - mF4)*60)
+	final4 = final4/60
+	if(mI4 < 10)
+		mI4 = '0'+mI4
+	if(sI4 < 10)
+		sI4 = '0'+sI4
+	if(mF4 < 10)
+		mF4 = '0'+mF4
+	if(sF4 < 10)
+		sF4 = '0'+sF4
+	var label4 = sumarys[3].label
+	var color4 = sumarys[3].color
+	document.querySelector('#div_bloco_4').style.backgroundColor = color4
+	document.querySelector('#bloco_4_label_valor').innerHTML = 'Valor: '+label4
+	document.querySelector('#bloco_4_label_inicio').innerHTML = 'Inicio: '+ mI4 + ':' + sI4
+	document.querySelector('#bloco_4_label_fim').innerHTML = 'Fim: '+ mF4 + ':' + sF4
+	var  midia4_1 = document.getElementById('bloco_4_video_1');
+	var  midia4_2 = document.getElementById('bloco_4_video_2');
+	var  midia4_3 = document.getElementById('bloco_4_video_3');
+	 midia4_2.volume = 0;
+	 midia4_3.volume = 0;
+	 midia4_1.removeAttribute('controls');
+	 midia4_2.removeAttribute('controls');
+	 midia4_3.removeAttribute('controls');
+	 midia4_1.currentTime = inicio4
+	 midia4_2.currentTime = inicio4
+	 midia4_3.currentTime = inicio4
+
+	status4 = 'pause4' //play2 ou stop2	
+	function play4 (){
+		status4 = 'play4';
+		 midia4_1.play();
+		 midia4_2.play();
+		 midia4_3.play();
+		$("#btnPlay4").css("background","#17A2B8");
+		$("#btnPause4").css("background","#EAE8E8");
+		$("#btnStop4").css("background","#EAE8E8");
+		$("#btnPlay4").css("color","white");
+		$("#btnPause4").css("color","black");
+		$("#btnStop4").css("color","black");
+		gerenciaVideo4()
+	}
+	document.getElementById('btnPlay4').onclick = play2
+	function pause4 (){
+		status4 = 'pause4';
+		 midia4_1.pause();
+		 midia4_2.pause();
+		 midia4_3.pause();
+		$("#btnPlay4").css("background","#EAE8E8");
+		$("#btnPause4").css("background","#17A2B8");
+		$("#btnStop4").css("background","#EAE8E8");
+		$("#btnPlay4").css("color","black");
+		$("#btnPause4").css("color","white");
+		$("#btnStop4").css("color","black");
+	}
+	function stop4 (){
+		status4 = 'stop4';
+		 midia4_1.pause();
+		 midia4_2.pause();
+		 midia4_3.pause();
+		 midia4_1.currentTime = inicio4
+		 midia4_2.currentTime = inicio4
+		 midia4_3.currentTime = inicio4	
+		$("#btnPlay4").css("background","#EAE8E8");
+		$("#btnPause4").css("background","#EAE8E8");
+		$("#btnStop4").css("background","#17A2B8");
+		$("#btnPlay4").css("color","black");
+		$("#btnPause4").css("color","black");
+		$("#btnStop4").css("color","white");
+	}
+
+	function gerenciaVideo4(){
+		if( midia4_1.currentTime < final4)  {
+			setTimeout(gerenciaVideo4,2000)
+		}
+		else{
+			stop4()
+		}
+	}	
+	document.getElementById('btnPlay4').onclick = play4
+	document.getElementById('btnPause4').onclick = pause4
+	document.getElementById('btnStop4').onclick = stop4
+     </script>  
+
+    <div class="container" id="div_bloco_5">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay5" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause5" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop5" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_5_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_5_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_5_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_5_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_5_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_5_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+ 
+     <script>
+	var inicio5 = sumarys[4].start
+	mI5 = parseInt(inicio5/3600)
+	sI5 = parseInt((inicio5/3600 - mI5)*60)
+	inicio5 = inicio5/60
+       	var final5 = sumarys[4].final
+	mF5 = parseInt(final5/3600)
+	sF5 = parseInt((final5/3600 - mF5)*60)
+	final5 = final5/60
+	if(mI5 < 10)
+		mI5 = '0'+mI5
+	if(sI5 < 10)
+		sI5 = '0'+sI5
+	if(mF5 < 10)
+		mF5 = '0'+mF5
+	if(sF5 < 10)
+		sF5 = '0'+sF5
+	var label5 = sumarys[4].label
+	var color5 = sumarys[4].color
+	document.querySelector('#div_bloco_5').style.backgroundColor = color5
+	document.querySelector('#bloco_5_label_valor').innerHTML = 'Valor: '+label5
+	document.querySelector('#bloco_5_label_inicio').innerHTML = 'Inicio: '+ mI5 + ':' + sI5
+	document.querySelector('#bloco_5_label_fim').innerHTML = 'Fim: '+ mF5 + ':' + sF5
+	var  midia5_1 = document.getElementById('bloco_5_video_1');
+	var  midia5_2 = document.getElementById('bloco_5_video_2');
+	var  midia5_3 = document.getElementById('bloco_5_video_3');
+	 midia5_2.volume = 0;
+	 midia5_3.volume = 0;
+	 midia5_1.removeAttribute('controls');
+	 midia5_2.removeAttribute('controls');
+	 midia5_3.removeAttribute('controls');
+	 midia5_1.currentTime = inicio5
+	 midia5_2.currentTime = inicio5
+	 midia5_3.currentTime = inicio5
+
+	status5 = 'pause5' //play5 ou stop5	
+	function play5 (){
+		status5 = 'play5';
+		 midia5_1.play();
+		 midia5_2.play();
+		 midia5_3.play();
+		$("#btnPlay5").css("background","#17A2B8");
+		$("#btnPause5").css("background","#EAE8E8");
+		$("#btnStop5").css("background","#EAE8E8");
+		$("#btnPlay5").css("color","white");
+		$("#btnPause5").css("color","black");
+		$("#btnStop5").css("color","black");
+		gerenciaVideo5()
+	}
+	document.getElementById('btnPlay5').onclick = play2
+	function pause5 (){
+		status5 = 'pause5';
+		 midia5_1.pause();
+		 midia5_2.pause();
+		 midia5_3.pause();
+		$("#btnPlay5").css("background","#EAE8E8");
+		$("#btnPause5").css("background","#17A2B8");
+		$("#btnStop5").css("background","#EAE8E8");
+		$("#btnPlay5").css("color","black");
+		$("#btnPause5").css("color","white");
+		$("#btnStop5").css("color","black");
+	}
+	function stop5 (){
+		status5 = 'stop5';
+		 midia5_1.pause();
+		 midia5_2.pause();
+		 midia5_3.pause();
+		 midia5_1.currentTime = inicio5
+		 midia5_2.currentTime = inicio5
+		 midia5_3.currentTime = inicio5	
+		$("#btnPlay5").css("background","#EAE8E8");
+		$("#btnPause5").css("background","#EAE8E8");
+		$("#btnStop5").css("background","#17A2B8");
+		$("#btnPlay5").css("color","black");
+		$("#btnPause5").css("color","black");
+		$("#btnStop5").css("color","white");
+	}
+
+	function gerenciaVideo5(){
+		if( midia5_1.currentTime < final5)  {
+			setTimeout(gerenciaVideo5,2000)
+		}
+		else{
+			stop5()
+		}
+	}	
+	document.getElementById('btnPlay5').onclick = play5
+	document.getElementById('btnPause5').onclick = pause5
+	document.getElementById('btnStop5').onclick = stop5
+     </script>  	
+
+         <div class="container" id="div_bloco_6">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay6" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause6" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop6" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_6_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_6_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_6_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_6_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_6_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_6_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio6 = sumarys[5].start
+	mI6 = parseInt(inicio6/3600)
+	sI6 = parseInt((inicio6/3600 - mI6)*60)
+	inicio6 = inicio6/60
+       	var final6 = sumarys[5].final
+	mF6 = parseInt(final6/3600)
+	sF6 = parseInt((final6/3600 - mF6)*60)
+	final6 = final6/60
+	if(mI6 < 10)
+		mI6 = '0'+mI6
+	if(sI6 < 10)
+		sI6 = '0'+sI6
+	if(mF6 < 10)
+		mF6 = '0'+mF6
+	if(sF6 < 10)
+		sF6 = '0'+sF6
+	var label6 = sumarys[5].label
+	var color6 = sumarys[5].color
+	document.querySelector('#div_bloco_6').style.backgroundColor = color6
+	document.querySelector('#bloco_6_label_valor').innerHTML = 'Valor: '+label6
+	document.querySelector('#bloco_6_label_inicio').innerHTML = 'Inicio: '+ mI6 + ':' + sI6
+	document.querySelector('#bloco_6_label_fim').innerHTML = 'Fim: '+ mF6 + ':' + sF6
+	var  midia6_1 = document.getElementById('bloco_6_video_1');
+	var  midia6_2 = document.getElementById('bloco_6_video_2');
+	var  midia6_3 = document.getElementById('bloco_6_video_3');
+	 midia6_2.volume = 0;
+	 midia6_3.volume = 0;
+	 midia6_1.removeAttribute('controls');
+	 midia6_2.removeAttribute('controls');
+	 midia6_3.removeAttribute('controls');
+	 midia6_1.currentTime = inicio6
+	 midia6_2.currentTime = inicio6
+	 midia6_3.currentTime = inicio6
+
+	status6 = 'pause6' //play6 ou stop6	
+	function play6 (){
+		status6 = 'play6';
+		 midia6_1.play();
+		 midia6_2.play();
+		 midia6_3.play();
+		$("#btnPlay6").css("background","#17A2B8");
+		$("#btnPause6").css("background","#EAE8E8");
+		$("#btnStop6").css("background","#EAE8E8");
+		$("#btnPlay6").css("color","white");
+		$("#btnPause6").css("color","black");
+		$("#btnStop6").css("color","black");
+		gerenciaVideo6()
+	}
+	document.getElementById('btnPlay6').onclick = play2
+	function pause6 (){
+		status6 = 'pause6';
+		 midia6_1.pause();
+		 midia6_2.pause();
+		 midia6_3.pause();
+		$("#btnPlay6").css("background","#EAE8E8");
+		$("#btnPause6").css("background","#17A2B8");
+		$("#btnStop6").css("background","#EAE8E8");
+		$("#btnPlay6").css("color","black");
+		$("#btnPause6").css("color","white");
+		$("#btnStop6").css("color","black");
+	}
+	function stop6 (){
+		status6 = 'stop6';
+		 midia6_1.pause();
+		 midia6_2.pause();
+		 midia6_3.pause();
+		 midia6_1.currentTime = inicio6
+		 midia6_2.currentTime = inicio6
+		 midia6_3.currentTime = inicio6	
+		$("#btnPlay6").css("background","#EAE8E8");
+		$("#btnPause6").css("background","#EAE8E8");
+		$("#btnStop6").css("background","#17A2B8");
+		$("#btnPlay6").css("color","black");
+		$("#btnPause6").css("color","black");
+		$("#btnStop6").css("color","white");
+	}
+
+	function gerenciaVideo6(){
+		if( midia6_1.currentTime < final6)  {
+			setTimeout(gerenciaVideo6,2000)
+		}
+		else{
+			stop6()
+		}
+	}	
+	document.getElementById('btnPlay6').onclick = play6
+	document.getElementById('btnPause6').onclick = pause6
+	document.getElementById('btnStop6').onclick = stop6
+     </script>  
+
+     <div class="container" id="div_bloco_7">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay7" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause7" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop7" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_7_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_7_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_7_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_7_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_7_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_7_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio7 = sumarys[6].start
+	mI7 = parseInt(inicio7/3600)
+	sI7 = parseInt((inicio7/3600 - mI7)*60)
+	inicio7 = inicio7/60
+       	var final7 = sumarys[6].final
+	mF7 = parseInt(final7/3600)
+	sF7 = parseInt((final7/3600 - mF7)*60)
+	final7 = final7/60
+	if(mI7 < 10)
+		mI7 = '0'+mI7
+	if(sI7 < 10)
+		sI7 = '0'+sI7
+	if(mF7 < 10)
+		mF7 = '0'+mF7
+	if(sF7 < 10)
+		sF7 = '0'+sF7
+	var label7 = sumarys[6].label
+	var color7 = sumarys[6].color
+	document.querySelector('#div_bloco_7').style.backgroundColor = color7
+	document.querySelector('#bloco_7_label_valor').innerHTML = 'Valor: '+label7
+	document.querySelector('#bloco_7_label_inicio').innerHTML = 'Inicio: '+ mI7 + ':' + sI7
+	document.querySelector('#bloco_7_label_fim').innerHTML = 'Fim: '+ mF7 + ':' + sF7
+	var  midia7_1 = document.getElementById('bloco_7_video_1');
+	var  midia7_2 = document.getElementById('bloco_7_video_2');
+	var  midia7_3 = document.getElementById('bloco_7_video_3');
+	 midia7_2.volume = 0;
+	 midia7_3.volume = 0;
+	 midia7_1.removeAttribute('controls');
+	 midia7_2.removeAttribute('controls');
+	 midia7_3.removeAttribute('controls');
+	 midia7_1.currentTime = inicio7
+	 midia7_2.currentTime = inicio7
+	 midia7_3.currentTime = inicio7
+
+	status7 = 'pause7' //play7 ou stop7	
+	function play7 (){
+		status7 = 'play7';
+		 midia7_1.play();
+		 midia7_2.play();
+		 midia7_3.play();
+		$("#btnPlay7").css("background","#17A2B8");
+		$("#btnPause7").css("background","#EAE8E8");
+		$("#btnStop7").css("background","#EAE8E8");
+		$("#btnPlay7").css("color","white");
+		$("#btnPause7").css("color","black");
+		$("#btnStop7").css("color","black");
+		gerenciaVideo7()
+	}
+	document.getElementById('btnPlay7').onclick = play2
+	function pause7 (){
+		status7 = 'pause7';
+		 midia7_1.pause();
+		 midia7_2.pause();
+		 midia7_3.pause();
+		$("#btnPlay7").css("background","#EAE8E8");
+		$("#btnPause7").css("background","#17A2B8");
+		$("#btnStop7").css("background","#EAE8E8");
+		$("#btnPlay7").css("color","black");
+		$("#btnPause7").css("color","white");
+		$("#btnStop7").css("color","black");
+	}
+	function stop7 (){
+		status7 = 'stop7';
+		 midia7_1.pause();
+		 midia7_2.pause();
+		 midia7_3.pause();
+		 midia7_1.currentTime = inicio7
+		 midia7_2.currentTime = inicio7
+		 midia7_3.currentTime = inicio7	
+		$("#btnPlay7").css("background","#EAE8E8");
+		$("#btnPause7").css("background","#EAE8E8");
+		$("#btnStop7").css("background","#17A2B8");
+		$("#btnPlay7").css("color","black");
+		$("#btnPause7").css("color","black");
+		$("#btnStop7").css("color","white");
+	}
+
+	function gerenciaVideo7(){
+		if( midia7_1.currentTime < final7)  {
+			setTimeout(gerenciaVideo7,2000)
+		}
+		else{
+			stop7()
+		}
+	}	
+	document.getElementById('btnPlay7').onclick = play7
+	document.getElementById('btnPause7').onclick = pause7
+	document.getElementById('btnStop7').onclick = stop7
+     </script>  	
+
+     <div class="container" id="div_bloco_8">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay8" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause8" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop8" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_8_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_8_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_8_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_8_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_8_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_8_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio8 = sumarys[7].start
+	mI8 = parseInt(inicio8/3600)
+	sI8 = parseInt((inicio8/3600 - mI8)*60)
+	inicio8 = inicio8/60
+       	var final8 = sumarys[7].final
+	mF8 = parseInt(final8/3600)
+	sF8 = parseInt((final8/3600 - mF8)*60)
+	final8 = final8/60
+	if(mI8 < 10)
+		mI8 = '0'+mI8
+	if(sI8 < 10)
+		sI8 = '0'+sI8
+	if(mF8 < 10)
+		mF8 = '0'+mF8
+	if(sF8 < 10)
+		sF8 = '0'+sF8
+	var label8 = sumarys[7].label
+	var color8 = sumarys[7].color
+	document.querySelector('#div_bloco_8').style.backgroundColor = color8
+	document.querySelector('#bloco_8_label_valor').innerHTML = 'Valor: '+label8
+	document.querySelector('#bloco_8_label_inicio').innerHTML = 'Inicio: '+ mI8 + ':' + sI8
+	document.querySelector('#bloco_8_label_fim').innerHTML = 'Fim: '+ mF8 + ':' + sF8
+	var  midia8_1 = document.getElementById('bloco_8_video_1');
+	var  midia8_2 = document.getElementById('bloco_8_video_2');
+	var  midia8_3 = document.getElementById('bloco_8_video_3');
+	 midia8_2.volume = 0;
+	 midia8_3.volume = 0;
+	 midia8_1.removeAttribute('controls');
+	 midia8_2.removeAttribute('controls');
+	 midia8_3.removeAttribute('controls');
+	 midia8_1.currentTime = inicio8
+	 midia8_2.currentTime = inicio8
+	 midia8_3.currentTime = inicio8
+
+	status8 = 'pause8' //play8 ou stop8	
+	function play8 (){
+		status8 = 'play8';
+		 midia8_1.play();
+		 midia8_2.play();
+		 midia8_3.play();
+		$("#btnPlay8").css("background","#17A2B8");
+		$("#btnPause8").css("background","#EAE8E8");
+		$("#btnStop8").css("background","#EAE8E8");
+		$("#btnPlay8").css("color","white");
+		$("#btnPause8").css("color","black");
+		$("#btnStop8").css("color","black");
+		gerenciaVideo8()
+	}
+	document.getElementById('btnPlay8').onclick = play2
+	function pause8 (){
+		status8 = 'pause8';
+		 midia8_1.pause();
+		 midia8_2.pause();
+		 midia8_3.pause();
+		$("#btnPlay8").css("background","#EAE8E8");
+		$("#btnPause8").css("background","#17A2B8");
+		$("#btnStop8").css("background","#EAE8E8");
+		$("#btnPlay8").css("color","black");
+		$("#btnPause8").css("color","white");
+		$("#btnStop8").css("color","black");
+	}
+	function stop8 (){
+		status8 = 'stop8';
+		 midia8_1.pause();
+		 midia8_2.pause();
+		 midia8_3.pause();
+		 midia8_1.currentTime = inicio8
+		 midia8_2.currentTime = inicio8
+		 midia8_3.currentTime = inicio8	
+		$("#btnPlay8").css("background","#EAE8E8");
+		$("#btnPause8").css("background","#EAE8E8");
+		$("#btnStop8").css("background","#17A2B8");
+		$("#btnPlay8").css("color","black");
+		$("#btnPause8").css("color","black");
+		$("#btnStop8").css("color","white");
+	}
+
+	function gerenciaVideo8(){
+		if( midia8_1.currentTime < final8)  {
+			setTimeout(gerenciaVideo8,2000)
+		}
+		else{
+			stop8()
+		}
+	}	
+	document.getElementById('btnPlay8').onclick = play8
+	document.getElementById('btnPause8').onclick = pause8
+	document.getElementById('btnStop8').onclick = stop8
+     </script>  	
+
+     <div class="container" id="div_bloco_9">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay9" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause9" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop9" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_9_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_9_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_9_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_9_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_9_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_9_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio9 = sumarys[8].start
+	mI9 = parseInt(inicio9/3600)
+	sI9 = parseInt((inicio9/3600 - mI9)*60)
+	inicio9 = inicio9/60
+       	var final9 = sumarys[8].final
+	mF9 = parseInt(final9/3600)
+	sF9 = parseInt((final9/3600 - mF9)*60)
+	final9 = final9/60
+	if(mI9 < 10)
+		mI9 = '0'+mI9
+	if(sI9 < 10)
+		sI9 = '0'+sI9
+	if(mF9 < 10)
+		mF9 = '0'+mF9
+	if(sF9 < 10)
+		sF9 = '0'+sF9
+	var label9 = sumarys[8].label
+	var color9 = sumarys[8].color
+	document.querySelector('#div_bloco_9').style.backgroundColor = color9
+	document.querySelector('#bloco_9_label_valor').innerHTML = 'Valor: '+label9
+	document.querySelector('#bloco_9_label_inicio').innerHTML = 'Inicio: '+ mI9 + ':' + sI9
+	document.querySelector('#bloco_9_label_fim').innerHTML = 'Fim: '+ mF9 + ':' + sF9
+	var  midia9_1 = document.getElementById('bloco_9_video_1');
+	var  midia9_2 = document.getElementById('bloco_9_video_2');
+	var  midia9_3 = document.getElementById('bloco_9_video_3');
+	 midia9_2.volume = 0;
+	 midia9_3.volume = 0;
+	 midia9_1.removeAttribute('controls');
+	 midia9_2.removeAttribute('controls');
+	 midia9_3.removeAttribute('controls');
+	 midia9_1.currentTime = inicio9
+	 midia9_2.currentTime = inicio9
+	 midia9_3.currentTime = inicio9
+
+	status9 = 'pause9' //play9 ou stop9	
+	function play9 (){
+		status9 = 'play9';
+		 midia9_1.play();
+		 midia9_2.play();
+		 midia9_3.play();
+		$("#btnPlay9").css("background","#17A2B8");
+		$("#btnPause9").css("background","#EAE8E8");
+		$("#btnStop9").css("background","#EAE8E8");
+		$("#btnPlay9").css("color","white");
+		$("#btnPause9").css("color","black");
+		$("#btnStop9").css("color","black");
+		gerenciaVideo9()
+	}
+	document.getElementById('btnPlay9').onclick = play2
+	function pause9 (){
+		status9 = 'pause9';
+		 midia9_1.pause();
+		 midia9_2.pause();
+		 midia9_3.pause();
+		$("#btnPlay9").css("background","#EAE8E8");
+		$("#btnPause9").css("background","#17A2B8");
+		$("#btnStop9").css("background","#EAE8E8");
+		$("#btnPlay9").css("color","black");
+		$("#btnPause9").css("color","white");
+		$("#btnStop9").css("color","black");
+	}
+	function stop9 (){
+		status9 = 'stop9';
+		 midia9_1.pause();
+		 midia9_2.pause();
+		 midia9_3.pause();
+		 midia9_1.currentTime = inicio9
+		 midia9_2.currentTime = inicio9
+		 midia9_3.currentTime = inicio9	
+		$("#btnPlay9").css("background","#EAE8E8");
+		$("#btnPause9").css("background","#EAE8E8");
+		$("#btnStop9").css("background","#17A2B8");
+		$("#btnPlay9").css("color","black");
+		$("#btnPause9").css("color","black");
+		$("#btnStop9").css("color","white");
+	}
+
+	function gerenciaVideo9(){
+		if( midia9_1.currentTime < final9)  {
+			setTimeout(gerenciaVideo9,2000)
+		}
+		else{
+			stop9()
+		}
+	}	
+	document.getElementById('btnPlay9').onclick = play9
+	document.getElementById('btnPause9').onclick = pause9
+	document.getElementById('btnStop9').onclick = stop9
+     </script>  		
+
+     <div class="container" id="div_bloco_10">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay10" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause10" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop10" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_10_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_10_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_10_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_10_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_10_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_10_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio10 = sumarys[9].start
+	mI10 = parseInt(inicio10/3600)
+	sI10 = parseInt((inicio10/3600 - mI10)*60)
+	inicio10 = inicio10/60
+       	var final10 = sumarys[9].final
+	mF10 = parseInt(final10/3600)
+	sF10 = parseInt((final10/3600 - mF10)*60)
+	final10 = final10/60
+	if(mI10 < 10)
+		mI10 = '0'+mI10
+	if(sI10 < 10)
+		sI10 = '0'+sI10
+	if(mF10 < 10)
+		mF10 = '0'+mF10
+	if(sF10 < 10)
+		sF10 = '0'+sF10
+	var label10 = sumarys[9].label
+	var color10 = sumarys[9].color
+	document.querySelector('#div_bloco_10').style.backgroundColor = color10
+	document.querySelector('#bloco_10_label_valor').innerHTML = 'Valor: '+label10
+	document.querySelector('#bloco_10_label_inicio').innerHTML = 'Inicio: '+ mI10 + ':' + sI10
+	document.querySelector('#bloco_10_label_fim').innerHTML = 'Fim: '+ mF10 + ':' + sF10
+	var  midia10_1 = document.getElementById('bloco_10_video_1');
+	var  midia10_2 = document.getElementById('bloco_10_video_2');
+	var  midia10_3 = document.getElementById('bloco_10_video_3');
+	 midia10_2.volume = 0;
+	 midia10_3.volume = 0;
+	 midia10_1.removeAttribute('controls');
+	 midia10_2.removeAttribute('controls');
+	 midia10_3.removeAttribute('controls');
+	 midia10_1.currentTime = inicio10
+	 midia10_2.currentTime = inicio10
+	 midia10_3.currentTime = inicio10
+
+	status10 = 'pause10' //play10 ou stop10	
+	function play10 (){
+		status10 = 'play10';
+		 midia10_1.play();
+		 midia10_2.play();
+		 midia10_3.play();
+		$("#btnPlay10").css("background","#17A2B8");
+		$("#btnPause10").css("background","#EAE8E8");
+		$("#btnStop10").css("background","#EAE8E8");
+		$("#btnPlay10").css("color","white");
+		$("#btnPause10").css("color","black");
+		$("#btnStop10").css("color","black");
+		gerenciaVideo10()
+	}
+	document.getElementById('btnPlay10').onclick = play2
+	function pause10 (){
+		status10 = 'pause10';
+		 midia10_1.pause();
+		 midia10_2.pause();
+		 midia10_3.pause();
+		$("#btnPlay10").css("background","#EAE8E8");
+		$("#btnPause10").css("background","#17A2B8");
+		$("#btnStop10").css("background","#EAE8E8");
+		$("#btnPlay10").css("color","black");
+		$("#btnPause10").css("color","white");
+		$("#btnStop10").css("color","black");
+	}
+	function stop10 (){
+		status10 = 'stop10';
+		 midia10_1.pause();
+		 midia10_2.pause();
+		 midia10_3.pause();
+		 midia10_1.currentTime = inicio10
+		 midia10_2.currentTime = inicio10
+		 midia10_3.currentTime = inicio10	
+		$("#btnPlay10").css("background","#EAE8E8");
+		$("#btnPause10").css("background","#EAE8E8");
+		$("#btnStop10").css("background","#17A2B8");
+		$("#btnPlay10").css("color","black");
+		$("#btnPause10").css("color","black");
+		$("#btnStop10").css("color","white");
+	}
+
+	function gerenciaVideo10(){
+		if( midia10_1.currentTime < final10)  {
+			setTimeout(gerenciaVideo10,2000)
+		}
+		else{
+			stop10()
+		}
+	}	
+	document.getElementById('btnPlay10').onclick = play10
+	document.getElementById('btnPause10').onclick = pause10
+	document.getElementById('btnStop10').onclick = stop10
+     </script>  	
+
+     <div class="container" id="div_bloco_11">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay11" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause11" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop11" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_11_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_11_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_11_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_11_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_11_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_11_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio11 = sumarys[10].start
+	mI11 = parseInt(inicio11/3600)
+	sI11 = parseInt((inicio11/3600 - mI11)*60)
+	inicio11 = inicio11/60
+       	var final11 = sumarys[10].final
+	mF11 = parseInt(final11/3600)
+	sF11 = parseInt((final11/3600 - mF11)*60)
+	final11 = final11/60
+	if(mI11 < 11)
+		mI11 = '0'+mI11
+	if(sI11 < 11)
+		sI11 = '0'+sI11
+	if(mF11 < 11)
+		mF11 = '0'+mF11
+	if(sF11 < 11)
+		sF11 = '0'+sF11
+	var label11 = sumarys[10].label
+	var color11 = sumarys[10].color
+	document.querySelector('#div_bloco_11').style.backgroundColor = color11
+	document.querySelector('#bloco_11_label_valor').innerHTML = 'Valor: '+label11
+	document.querySelector('#bloco_11_label_inicio').innerHTML = 'Inicio: '+ mI11 + ':' + sI11
+	document.querySelector('#bloco_11_label_fim').innerHTML = 'Fim: '+ mF11 + ':' + sF11
+	var  midia11_1 = document.getElementById('bloco_11_video_1');
+	var  midia11_2 = document.getElementById('bloco_11_video_2');
+	var  midia11_3 = document.getElementById('bloco_11_video_3');
+	 midia11_2.volume = 0;
+	 midia11_3.volume = 0;
+	 midia11_1.removeAttribute('controls');
+	 midia11_2.removeAttribute('controls');
+	 midia11_3.removeAttribute('controls');
+	 midia11_1.currentTime = inicio11
+	 midia11_2.currentTime = inicio11
+	 midia11_3.currentTime = inicio11
+
+	status11 = 'pause11' //play11 ou stop11	
+	function play11 (){
+		status11 = 'play11';
+		 midia11_1.play();
+		 midia11_2.play();
+		 midia11_3.play();
+		$("#btnPlay11").css("background","#17A2B8");
+		$("#btnPause11").css("background","#EAE8E8");
+		$("#btnStop11").css("background","#EAE8E8");
+		$("#btnPlay11").css("color","white");
+		$("#btnPause11").css("color","black");
+		$("#btnStop11").css("color","black");
+		gerenciaVideo11()
+	}
+	document.getElementById('btnPlay11').onclick = play2
+	function pause11 (){
+		status11 = 'pause11';
+		 midia11_1.pause();
+		 midia11_2.pause();
+		 midia11_3.pause();
+		$("#btnPlay11").css("background","#EAE8E8");
+		$("#btnPause11").css("background","#17A2B8");
+		$("#btnStop11").css("background","#EAE8E8");
+		$("#btnPlay11").css("color","black");
+		$("#btnPause11").css("color","white");
+		$("#btnStop11").css("color","black");
+	}
+	function stop11 (){
+		status11 = 'stop11';
+		 midia11_1.pause();
+		 midia11_2.pause();
+		 midia11_3.pause();
+		 midia11_1.currentTime = inicio11
+		 midia11_2.currentTime = inicio11
+		 midia11_3.currentTime = inicio11	
+		$("#btnPlay11").css("background","#EAE8E8");
+		$("#btnPause11").css("background","#EAE8E8");
+		$("#btnStop11").css("background","#17A2B8");
+		$("#btnPlay11").css("color","black");
+		$("#btnPause11").css("color","black");
+		$("#btnStop11").css("color","white");
+	}
+
+	function gerenciaVideo11(){
+		if( midia11_1.currentTime < final11)  {
+			setTimeout(gerenciaVideo11,2000)
+		}
+		else{
+			stop11()
+		}
+	}	
+	document.getElementById('btnPlay11').onclick = play11
+	document.getElementById('btnPause11').onclick = pause11
+	document.getElementById('btnStop11').onclick = stop11
+     </script>  	
+
+     <div class="container" id="div_bloco_12">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay12" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause12" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop12" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_12_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_12_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_12_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_12_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_12_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_12_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio12 = sumarys[11].start
+	mI12 = parseInt(inicio12/3600)
+	sI12 = parseInt((inicio12/3600 - mI12)*60)
+	inicio12 = inicio12/60
+       	var final12 = sumarys[11].final
+	mF12 = parseInt(final12/3600)
+	sF12 = parseInt((final12/3600 - mF12)*60)
+	final12 = final12/60
+	if(mI12 < 12)
+		mI12 = '0'+mI12
+	if(sI12 < 12)
+		sI12 = '0'+sI12
+	if(mF12 < 12)
+		mF12 = '0'+mF12
+	if(sF12 < 12)
+		sF12 = '0'+sF12
+	var label12 = sumarys[11].label
+	var color12 = sumarys[11].color
+	document.querySelector('#div_bloco_12').style.backgroundColor = color12
+	document.querySelector('#bloco_12_label_valor').innerHTML = 'Valor: '+label12
+	document.querySelector('#bloco_12_label_inicio').innerHTML = 'Inicio: '+ mI12 + ':' + sI12
+	document.querySelector('#bloco_12_label_fim').innerHTML = 'Fim: '+ mF12 + ':' + sF12
+	var  midia12_1 = document.getElementById('bloco_12_video_1');
+	var  midia12_2 = document.getElementById('bloco_12_video_2');
+	var  midia12_3 = document.getElementById('bloco_12_video_3');
+	 midia12_2.volume = 0;
+	 midia12_3.volume = 0;
+	 midia12_1.removeAttribute('controls');
+	 midia12_2.removeAttribute('controls');
+	 midia12_3.removeAttribute('controls');
+	 midia12_1.currentTime = inicio12
+	 midia12_2.currentTime = inicio12
+	 midia12_3.currentTime = inicio12
+
+	status12 = 'pause12' //play12 ou stop12	
+	function play12 (){
+		status12 = 'play12';
+		 midia12_1.play();
+		 midia12_2.play();
+		 midia12_3.play();
+		$("#btnPlay12").css("background","#17A2B8");
+		$("#btnPause12").css("background","#EAE8E8");
+		$("#btnStop12").css("background","#EAE8E8");
+		$("#btnPlay12").css("color","white");
+		$("#btnPause12").css("color","black");
+		$("#btnStop12").css("color","black");
+		gerenciaVideo12()
+	}
+	document.getElementById('btnPlay12').onclick = play2
+	function pause12 (){
+		status12 = 'pause12';
+		 midia12_1.pause();
+		 midia12_2.pause();
+		 midia12_3.pause();
+		$("#btnPlay12").css("background","#EAE8E8");
+		$("#btnPause12").css("background","#17A2B8");
+		$("#btnStop12").css("background","#EAE8E8");
+		$("#btnPlay12").css("color","black");
+		$("#btnPause12").css("color","white");
+		$("#btnStop12").css("color","black");
+	}
+	function stop12 (){
+		status12 = 'stop12';
+		 midia12_1.pause();
+		 midia12_2.pause();
+		 midia12_3.pause();
+		 midia12_1.currentTime = inicio12
+		 midia12_2.currentTime = inicio12
+		 midia12_3.currentTime = inicio12	
+		$("#btnPlay12").css("background","#EAE8E8");
+		$("#btnPause12").css("background","#EAE8E8");
+		$("#btnStop12").css("background","#17A2B8");
+		$("#btnPlay12").css("color","black");
+		$("#btnPause12").css("color","black");
+		$("#btnStop12").css("color","white");
+	}
+
+	function gerenciaVideo12(){
+		if( midia12_1.currentTime < final12)  {
+			setTimeout(gerenciaVideo12,2000)
+		}
+		else{
+			stop12()
+		}
+	}	
+	document.getElementById('btnPlay12').onclick = play12
+	document.getElementById('btnPause12').onclick = pause12
+	document.getElementById('btnStop12').onclick = stop12
+     </script>  	
+
+     <div class="container" id="div_bloco_13">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay13" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause13" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop13" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_13_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_13_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_13_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_13_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_13_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_13_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio13 = sumarys[12].start
+	mI13 = parseInt(inicio13/3600)
+	sI13 = parseInt((inicio13/3600 - mI13)*60)
+	inicio13 = inicio13/60
+       	var final13 = sumarys[12].final
+	mF13 = parseInt(final13/3600)
+	sF13 = parseInt((final13/3600 - mF13)*60)
+	final13 = final13/60
+	if(mI13 < 13)
+		mI13 = '0'+mI13
+	if(sI13 < 13)
+		sI13 = '0'+sI13
+	if(mF13 < 13)
+		mF13 = '0'+mF13
+	if(sF13 < 13)
+		sF13 = '0'+sF13
+	var label13 = sumarys[12].label
+	var color13 = sumarys[12].color
+	document.querySelector('#div_bloco_13').style.backgroundColor = color13
+	document.querySelector('#bloco_13_label_valor').innerHTML = 'Valor: '+label13
+	document.querySelector('#bloco_13_label_inicio').innerHTML = 'Inicio: '+ mI13 + ':' + sI13
+	document.querySelector('#bloco_13_label_fim').innerHTML = 'Fim: '+ mF13 + ':' + sF13
+	var  midia13_1 = document.getElementById('bloco_13_video_1');
+	var  midia13_2 = document.getElementById('bloco_13_video_2');
+	var  midia13_3 = document.getElementById('bloco_13_video_3');
+	 midia13_2.volume = 0;
+	 midia13_3.volume = 0;
+	 midia13_1.removeAttribute('controls');
+	 midia13_2.removeAttribute('controls');
+	 midia13_3.removeAttribute('controls');
+	 midia13_1.currentTime = inicio13
+	 midia13_2.currentTime = inicio13
+	 midia13_3.currentTime = inicio13
+
+	status13 = 'pause13' //play13 ou stop13	
+	function play13 (){
+		status13 = 'play13';
+		 midia13_1.play();
+		 midia13_2.play();
+		 midia13_3.play();
+		$("#btnPlay13").css("background","#17A2B8");
+		$("#btnPause13").css("background","#EAE8E8");
+		$("#btnStop13").css("background","#EAE8E8");
+		$("#btnPlay13").css("color","white");
+		$("#btnPause13").css("color","black");
+		$("#btnStop13").css("color","black");
+		gerenciaVideo13()
+	}
+	document.getElementById('btnPlay13').onclick = play2
+	function pause13 (){
+		status13 = 'pause13';
+		 midia13_1.pause();
+		 midia13_2.pause();
+		 midia13_3.pause();
+		$("#btnPlay13").css("background","#EAE8E8");
+		$("#btnPause13").css("background","#17A2B8");
+		$("#btnStop13").css("background","#EAE8E8");
+		$("#btnPlay13").css("color","black");
+		$("#btnPause13").css("color","white");
+		$("#btnStop13").css("color","black");
+	}
+	function stop13 (){
+		status13 = 'stop13';
+		 midia13_1.pause();
+		 midia13_2.pause();
+		 midia13_3.pause();
+		 midia13_1.currentTime = inicio13
+		 midia13_2.currentTime = inicio13
+		 midia13_3.currentTime = inicio13	
+		$("#btnPlay13").css("background","#EAE8E8");
+		$("#btnPause13").css("background","#EAE8E8");
+		$("#btnStop13").css("background","#17A2B8");
+		$("#btnPlay13").css("color","black");
+		$("#btnPause13").css("color","black");
+		$("#btnStop13").css("color","white");
+	}
+
+	function gerenciaVideo13(){
+		if( midia13_1.currentTime < final13)  {
+			setTimeout(gerenciaVideo13,2000)
+		}
+		else{
+			stop13()
+		}
+	}	
+	document.getElementById('btnPlay13').onclick = play13
+	document.getElementById('btnPause13').onclick = pause13
+	document.getElementById('btnStop13').onclick = stop13
+     </script>  	
+
+     <div class="container" id="div_bloco_14">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay14" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause14" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop14" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_14_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_14_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_14_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_14_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_14_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_14_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio14 = sumarys[13].start
+	mI14 = parseInt(inicio14/3600)
+	sI14 = parseInt((inicio14/3600 - mI14)*60)
+	inicio14 = inicio14/60
+       	var final14 = sumarys[13].final
+	mF14 = parseInt(final14/3600)
+	sF14 = parseInt((final14/3600 - mF14)*60)
+	final14 = final14/60
+	if(mI14 < 14)
+		mI14 = '0'+mI14
+	if(sI14 < 14)
+		sI14 = '0'+sI14
+	if(mF14 < 14)
+		mF14 = '0'+mF14
+	if(sF14 < 14)
+		sF14 = '0'+sF14
+	var label14 = sumarys[13].label
+	var color14 = sumarys[13].color
+	document.querySelector('#div_bloco_14').style.backgroundColor = color14
+	document.querySelector('#bloco_14_label_valor').innerHTML = 'Valor: '+label14
+	document.querySelector('#bloco_14_label_inicio').innerHTML = 'Inicio: '+ mI14 + ':' + sI14
+	document.querySelector('#bloco_14_label_fim').innerHTML = 'Fim: '+ mF14 + ':' + sF14
+	var  midia14_1 = document.getElementById('bloco_14_video_1');
+	var  midia14_2 = document.getElementById('bloco_14_video_2');
+	var  midia14_3 = document.getElementById('bloco_14_video_3');
+	 midia14_2.volume = 0;
+	 midia14_3.volume = 0;
+	 midia14_1.removeAttribute('controls');
+	 midia14_2.removeAttribute('controls');
+	 midia14_3.removeAttribute('controls');
+	 midia14_1.currentTime = inicio14
+	 midia14_2.currentTime = inicio14
+	 midia14_3.currentTime = inicio14
+
+	status14 = 'pause14' //play14 ou stop14	
+	function play14 (){
+		status14 = 'play14';
+		 midia14_1.play();
+		 midia14_2.play();
+		 midia14_3.play();
+		$("#btnPlay14").css("background","#17A2B8");
+		$("#btnPause14").css("background","#EAE8E8");
+		$("#btnStop14").css("background","#EAE8E8");
+		$("#btnPlay14").css("color","white");
+		$("#btnPause14").css("color","black");
+		$("#btnStop14").css("color","black");
+		gerenciaVideo14()
+	}
+	document.getElementById('btnPlay14').onclick = play2
+	function pause14 (){
+		status14 = 'pause14';
+		 midia14_1.pause();
+		 midia14_2.pause();
+		 midia14_3.pause();
+		$("#btnPlay14").css("background","#EAE8E8");
+		$("#btnPause14").css("background","#17A2B8");
+		$("#btnStop14").css("background","#EAE8E8");
+		$("#btnPlay14").css("color","black");
+		$("#btnPause14").css("color","white");
+		$("#btnStop14").css("color","black");
+	}
+	function stop14 (){
+		status14 = 'stop14';
+		 midia14_1.pause();
+		 midia14_2.pause();
+		 midia14_3.pause();
+		 midia14_1.currentTime = inicio14
+		 midia14_2.currentTime = inicio14
+		 midia14_3.currentTime = inicio14	
+		$("#btnPlay14").css("background","#EAE8E8");
+		$("#btnPause14").css("background","#EAE8E8");
+		$("#btnStop14").css("background","#17A2B8");
+		$("#btnPlay14").css("color","black");
+		$("#btnPause14").css("color","black");
+		$("#btnStop14").css("color","white");
+	}
+
+	function gerenciaVideo14(){
+		if( midia14_1.currentTime < final14)  {
+			setTimeout(gerenciaVideo14,2000)
+		}
+		else{
+			stop14()
+		}
+	}	
+	document.getElementById('btnPlay14').onclick = play14
+	document.getElementById('btnPause14').onclick = pause14
+	document.getElementById('btnStop14').onclick = stop14
+     </script>  	
+     <div class="container" id="div_bloco_15">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay15" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause15" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop15" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_15_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_15_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_15_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_15_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_15_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_15_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio15 = sumarys[14].start
+	mI15 = parseInt(inicio15/3600)
+	sI15 = parseInt((inicio15/3600 - mI15)*60)
+	inicio15 = inicio15/60
+       	var final15 = sumarys[14].final
+	mF15 = parseInt(final15/3600)
+	sF15 = parseInt((final15/3600 - mF15)*60)
+	final15 = final15/60
+	if(mI15 < 15)
+		mI15 = '0'+mI15
+	if(sI15 < 15)
+		sI15 = '0'+sI15
+	if(mF15 < 15)
+		mF15 = '0'+mF15
+	if(sF15 < 15)
+		sF15 = '0'+sF15
+	var label15 = sumarys[14].label
+	var color15 = sumarys[14].color
+	document.querySelector('#div_bloco_15').style.backgroundColor = color15
+	document.querySelector('#bloco_15_label_valor').innerHTML = 'Valor: '+label15
+	document.querySelector('#bloco_15_label_inicio').innerHTML = 'Inicio: '+ mI15 + ':' + sI15
+	document.querySelector('#bloco_15_label_fim').innerHTML = 'Fim: '+ mF15 + ':' + sF15
+	var  midia15_1 = document.getElementById('bloco_15_video_1');
+	var  midia15_2 = document.getElementById('bloco_15_video_2');
+	var  midia15_3 = document.getElementById('bloco_15_video_3');
+	 midia15_2.volume = 0;
+	 midia15_3.volume = 0;
+	 midia15_1.removeAttribute('controls');
+	 midia15_2.removeAttribute('controls');
+	 midia15_3.removeAttribute('controls');
+	 midia15_1.currentTime = inicio15
+	 midia15_2.currentTime = inicio15
+	 midia15_3.currentTime = inicio15
+
+	status15 = 'pause15' //play15 ou stop15	
+	function play15 (){
+		status15 = 'play15';
+		 midia15_1.play();
+		 midia15_2.play();
+		 midia15_3.play();
+		$("#btnPlay15").css("background","#17A2B8");
+		$("#btnPause15").css("background","#EAE8E8");
+		$("#btnStop15").css("background","#EAE8E8");
+		$("#btnPlay15").css("color","white");
+		$("#btnPause15").css("color","black");
+		$("#btnStop15").css("color","black");
+		gerenciaVideo15()
+	}
+	document.getElementById('btnPlay15').onclick = play2
+	function pause15 (){
+		status15 = 'pause15';
+		 midia15_1.pause();
+		 midia15_2.pause();
+		 midia15_3.pause();
+		$("#btnPlay15").css("background","#EAE8E8");
+		$("#btnPause15").css("background","#17A2B8");
+		$("#btnStop15").css("background","#EAE8E8");
+		$("#btnPlay15").css("color","black");
+		$("#btnPause15").css("color","white");
+		$("#btnStop15").css("color","black");
+	}
+	function stop15 (){
+		status15 = 'stop15';
+		 midia15_1.pause();
+		 midia15_2.pause();
+		 midia15_3.pause();
+		 midia15_1.currentTime = inicio15
+		 midia15_2.currentTime = inicio15
+		 midia15_3.currentTime = inicio15	
+		$("#btnPlay15").css("background","#EAE8E8");
+		$("#btnPause15").css("background","#EAE8E8");
+		$("#btnStop15").css("background","#17A2B8");
+		$("#btnPlay15").css("color","black");
+		$("#btnPause15").css("color","black");
+		$("#btnStop15").css("color","white");
+	}
+
+	function gerenciaVideo15(){
+		if( midia15_1.currentTime < final15)  {
+			setTimeout(gerenciaVideo15,2000)
+		}
+		else{
+			stop15()
+		}
+	}	
+	document.getElementById('btnPlay15').onclick = play15
+	document.getElementById('btnPause15').onclick = pause15
+	document.getElementById('btnStop15').onclick = stop15
+     </script>  	
+
+     <div class="container" id="div_bloco_16">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay16" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause16" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop16" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_16_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_16_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_16_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_16_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_16_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_16_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio16 = sumarys[15].start
+	mI16 = parseInt(inicio16/3600)
+	sI16 = parseInt((inicio16/3600 - mI16)*60)
+	inicio16 = inicio16/60
+       	var final16 = sumarys[15].final
+	mF16 = parseInt(final16/3600)
+	sF16 = parseInt((final16/3600 - mF16)*60)
+	final16 = final16/60
+	if(mI16 < 16)
+		mI16 = '0'+mI16
+	if(sI16 < 16)
+		sI16 = '0'+sI16
+	if(mF16 < 16)
+		mF16 = '0'+mF16
+	if(sF16 < 16)
+		sF16 = '0'+sF16
+	var label16 = sumarys[15].label
+	var color16 = sumarys[15].color
+	document.querySelector('#div_bloco_16').style.backgroundColor = color16
+	document.querySelector('#bloco_16_label_valor').innerHTML = 'Valor: '+label16
+	document.querySelector('#bloco_16_label_inicio').innerHTML = 'Inicio: '+ mI16 + ':' + sI16
+	document.querySelector('#bloco_16_label_fim').innerHTML = 'Fim: '+ mF16 + ':' + sF16
+	var  midia16_1 = document.getElementById('bloco_16_video_1');
+	var  midia16_2 = document.getElementById('bloco_16_video_2');
+	var  midia16_3 = document.getElementById('bloco_16_video_3');
+	 midia16_2.volume = 0;
+	 midia16_3.volume = 0;
+	 midia16_1.removeAttribute('controls');
+	 midia16_2.removeAttribute('controls');
+	 midia16_3.removeAttribute('controls');
+	 midia16_1.currentTime = inicio16
+	 midia16_2.currentTime = inicio16
+	 midia16_3.currentTime = inicio16
+
+	status16 = 'pause16' //play16 ou stop16	
+	function play16 (){
+		status16 = 'play16';
+		 midia16_1.play();
+		 midia16_2.play();
+		 midia16_3.play();
+		$("#btnPlay16").css("background","#17A2B8");
+		$("#btnPause16").css("background","#EAE8E8");
+		$("#btnStop16").css("background","#EAE8E8");
+		$("#btnPlay16").css("color","white");
+		$("#btnPause16").css("color","black");
+		$("#btnStop16").css("color","black");
+		gerenciaVideo16()
+	}
+	document.getElementById('btnPlay16').onclick = play2
+	function pause16 (){
+		status16 = 'pause16';
+		 midia16_1.pause();
+		 midia16_2.pause();
+		 midia16_3.pause();
+		$("#btnPlay16").css("background","#EAE8E8");
+		$("#btnPause16").css("background","#17A2B8");
+		$("#btnStop16").css("background","#EAE8E8");
+		$("#btnPlay16").css("color","black");
+		$("#btnPause16").css("color","white");
+		$("#btnStop16").css("color","black");
+	}
+	function stop16 (){
+		status16 = 'stop16';
+		 midia16_1.pause();
+		 midia16_2.pause();
+		 midia16_3.pause();
+		 midia16_1.currentTime = inicio16
+		 midia16_2.currentTime = inicio16
+		 midia16_3.currentTime = inicio16	
+		$("#btnPlay16").css("background","#EAE8E8");
+		$("#btnPause16").css("background","#EAE8E8");
+		$("#btnStop16").css("background","#17A2B8");
+		$("#btnPlay16").css("color","black");
+		$("#btnPause16").css("color","black");
+		$("#btnStop16").css("color","white");
+	}
+
+	function gerenciaVideo16(){
+		if( midia16_1.currentTime < final16)  {
+			setTimeout(gerenciaVideo16,2000)
+		}
+		else{
+			stop16()
+		}
+	}	
+	document.getElementById('btnPlay16').onclick = play16
+	document.getElementById('btnPause16').onclick = pause16
+	document.getElementById('btnStop16').onclick = stop16
+     </script>  	
+
+     <div class="container" id="div_bloco_17">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay17" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause17" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop17" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_17_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_17_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_17_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_17_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_17_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_17_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio17 = sumarys[16].start
+	mI17 = parseInt(inicio17/3600)
+	sI17 = parseInt((inicio17/3600 - mI17)*60)
+	inicio17 = inicio17/60
+       	var final17 = sumarys[16].final
+	mF17 = parseInt(final17/3600)
+	sF17 = parseInt((final17/3600 - mF17)*60)
+	final17 = final17/60
+	if(mI17 < 17)
+		mI17 = '0'+mI17
+	if(sI17 < 17)
+		sI17 = '0'+sI17
+	if(mF17 < 17)
+		mF17 = '0'+mF17
+	if(sF17 < 17)
+		sF17 = '0'+sF17
+	var label17 = sumarys[16].label
+	var color17 = sumarys[16].color
+	document.querySelector('#div_bloco_17').style.backgroundColor = color17
+	document.querySelector('#bloco_17_label_valor').innerHTML = 'Valor: '+label17
+	document.querySelector('#bloco_17_label_inicio').innerHTML = 'Inicio: '+ mI17 + ':' + sI17
+	document.querySelector('#bloco_17_label_fim').innerHTML = 'Fim: '+ mF17 + ':' + sF17
+	var  midia17_1 = document.getElementById('bloco_17_video_1');
+	var  midia17_2 = document.getElementById('bloco_17_video_2');
+	var  midia17_3 = document.getElementById('bloco_17_video_3');
+	 midia17_2.volume = 0;
+	 midia17_3.volume = 0;
+	 midia17_1.removeAttribute('controls');
+	 midia17_2.removeAttribute('controls');
+	 midia17_3.removeAttribute('controls');
+	 midia17_1.currentTime = inicio17
+	 midia17_2.currentTime = inicio17
+	 midia17_3.currentTime = inicio17
+
+	status17 = 'pause17' //play17 ou stop17	
+	function play17 (){
+		status17 = 'play17';
+		 midia17_1.play();
+		 midia17_2.play();
+		 midia17_3.play();
+		$("#btnPlay17").css("background","#17A2B8");
+		$("#btnPause17").css("background","#EAE8E8");
+		$("#btnStop17").css("background","#EAE8E8");
+		$("#btnPlay17").css("color","white");
+		$("#btnPause17").css("color","black");
+		$("#btnStop17").css("color","black");
+		gerenciaVideo17()
+	}
+	document.getElementById('btnPlay17').onclick = play2
+	function pause17 (){
+		status17 = 'pause17';
+		 midia17_1.pause();
+		 midia17_2.pause();
+		 midia17_3.pause();
+		$("#btnPlay17").css("background","#EAE8E8");
+		$("#btnPause17").css("background","#17A2B8");
+		$("#btnStop17").css("background","#EAE8E8");
+		$("#btnPlay17").css("color","black");
+		$("#btnPause17").css("color","white");
+		$("#btnStop17").css("color","black");
+	}
+	function stop17 (){
+		status17 = 'stop17';
+		 midia17_1.pause();
+		 midia17_2.pause();
+		 midia17_3.pause();
+		 midia17_1.currentTime = inicio17
+		 midia17_2.currentTime = inicio17
+		 midia17_3.currentTime = inicio17	
+		$("#btnPlay17").css("background","#EAE8E8");
+		$("#btnPause17").css("background","#EAE8E8");
+		$("#btnStop17").css("background","#17A2B8");
+		$("#btnPlay17").css("color","black");
+		$("#btnPause17").css("color","black");
+		$("#btnStop17").css("color","white");
+	}
+
+	function gerenciaVideo17(){
+		if( midia17_1.currentTime < final17)  {
+			setTimeout(gerenciaVideo17,2000)
+		}
+		else{
+			stop17()
+		}
+	}	
+	document.getElementById('btnPlay17').onclick = play17
+	document.getElementById('btnPause17').onclick = pause17
+	document.getElementById('btnStop17').onclick = stop17
+     </script>  	
+
+     <div class="container" id="div_bloco_18">
+	<div class="row">
+		<div class="col-4">
+		  	<button id="btnPlay18" class="btn" style="border: none;"> Play </button>
+    			<button id="btnPause18" class="btn btn-info" style="border: none;"> Pause </button>
+    			<button id="btnStop18" class="btn" style="border: none;"> Stop </button>
+		</div>
+		<div class="col-2"> </div>
+		<div class="col-2">
+			<label id="bloco_18_label_valor"> Valor: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_18_label_inicio"> Início: </label> 
+		</div>
+		<div class="col-2">
+			<label id="bloco_18_label_fim"> Fim: </label> 
+		</div>
+		<div class="col-4">
+			<video id="bloco_18_video_1">
+    				<source src="resources/video1.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_18_video_2">
+    				<source src="resources/video2.mp4" type="video/mp4">
+    			</video>
+		</div>
+		<div class="col-4">
+			<video id="bloco_18_video_3">
+    				<source src="resources/video3.mp4" type="video/mp4">
+    			</video>
+		</div>
+	</div>
+     </div> 
+     </br>
+
+    <script>
+	var inicio18 = sumarys[17].start
+	mI18 = parseInt(inicio18/3600)
+	sI18 = parseInt((inicio18/3600 - mI18)*60)
+	inicio18 = inicio18/60
+       	var final18 = sumarys[17].final
+	mF18 = parseInt(final18/3600)
+	sF18 = parseInt((final18/3600 - mF18)*60)
+	final18 = final18/60
+	if(mI18 < 18)
+		mI18 = '0'+mI18
+	if(sI18 < 18)
+		sI18 = '0'+sI18
+	if(mF18 < 18)
+		mF18 = '0'+mF18
+	if(sF18 < 18)
+		sF18 = '0'+sF18
+	var label18 = sumarys[17].label
+	var color18 = sumarys[17].color
+	document.querySelector('#div_bloco_18').style.backgroundColor = color18
+	document.querySelector('#bloco_18_label_valor').innerHTML = 'Valor: '+label18
+	document.querySelector('#bloco_18_label_inicio').innerHTML = 'Inicio: '+ mI18 + ':' + sI18
+	document.querySelector('#bloco_18_label_fim').innerHTML = 'Fim: '+ mF18 + ':' + sF18
+	var  midia18_1 = document.getElementById('bloco_18_video_1');
+	var  midia18_2 = document.getElementById('bloco_18_video_2');
+	var  midia18_3 = document.getElementById('bloco_18_video_3');
+	 midia18_2.volume = 0;
+	 midia18_3.volume = 0;
+	 midia18_1.removeAttribute('controls');
+	 midia18_2.removeAttribute('controls');
+	 midia18_3.removeAttribute('controls');
+	 midia18_1.currentTime = inicio18
+	 midia18_2.currentTime = inicio18
+	 midia18_3.currentTime = inicio18
+
+	status18 = 'pause18' //play18 ou stop18	
+	function play18 (){
+		status18 = 'play18';
+		 midia18_1.play();
+		 midia18_2.play();
+		 midia18_3.play();
+		$("#btnPlay18").css("background","#18A2B8");
+		$("#btnPause18").css("background","#EAE8E8");
+		$("#btnStop18").css("background","#EAE8E8");
+		$("#btnPlay18").css("color","white");
+		$("#btnPause18").css("color","black");
+		$("#btnStop18").css("color","black");
+		gerenciaVideo18()
+	}
+	document.getElementById('btnPlay18').onclick = play2
+	function pause18 (){
+		status18 = 'pause18';
+		 midia18_1.pause();
+		 midia18_2.pause();
+		 midia18_3.pause();
+		$("#btnPlay18").css("background","#EAE8E8");
+		$("#btnPause18").css("background","#18A2B8");
+		$("#btnStop18").css("background","#EAE8E8");
+		$("#btnPlay18").css("color","black");
+		$("#btnPause18").css("color","white");
+		$("#btnStop18").css("color","black");
+	}
+	function stop18 (){
+		status18 = 'stop18';
+		 midia18_1.pause();
+		 midia18_2.pause();
+		 midia18_3.pause();
+		 midia18_1.currentTime = inicio18
+		 midia18_2.currentTime = inicio18
+		 midia18_3.currentTime = inicio18	
+		$("#btnPlay18").css("background","#EAE8E8");
+		$("#btnPause18").css("background","#EAE8E8");
+		$("#btnStop18").css("background","#18A2B8");
+		$("#btnPlay18").css("color","black");
+		$("#btnPause18").css("color","black");
+		$("#btnStop18").css("color","white");
+	}
+
+	function gerenciaVideo18(){
+		if( midia18_1.currentTime < final18)  {
+			setTimeout(gerenciaVideo18,2000)
+		}
+		else{
+			stop18()
+		}
+	}	
+	document.getElementById('btnPlay18').onclick = play18
+	document.getElementById('btnPause18').onclick = pause18
+	document.getElementById('btnStop18').onclick = stop18
+     </script>  	
+
+
+</body>
+	
+</html>
