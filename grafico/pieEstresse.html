@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="../heartGraphs.js"> </script>
+<script>
+window.onload = function() {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title: {
+	},
+	data: [{
+		type: "pie",
+		startAngle: 240,
+		yValueFormatString: "##0.00\"%\"",
+		indexLabel: "{label} {y}",
+		dataPoints: [
+{ y:0.00880075956763, label: "> 200", color: "#B40404"},
+{ y:0.0600350569676, label: "101 a 200", color: "orange"},
+{ y:0.0696245983056, label: "51 a 100", color: "#FFFF00"},
+{ y:0.214921121823, label: "1 a 50", color: "#40FF00"},
+{ y:0.646611159801, label: "0", color: "#0B610B"}
+]
+		}]
+		});
+chart.render();
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 250px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
